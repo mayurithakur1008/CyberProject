@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYBERAPI SCANNER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <div class="bg"></div>
+    <div class="noise"></div>
+
+    <section class="hero" aria-label="CYBERAPI SCANNER">
+      <h1>CYBERAPI SCANNER</h1>
+      <form class="scan" autocomplete="off">
+        <label class="sr-only" for="api-url">API URL</label>
+        <input id="api-url" name="api-url" type="url" placeholder="Paste API URL here" spellcheck="false" required />
+        <button type="submit">SCAN</button>
+      </form>
+      <p class="scan-status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

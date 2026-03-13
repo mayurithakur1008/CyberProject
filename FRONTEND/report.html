@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYBERAPI SCANNER – Scan Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page dashboard">
+    <div class="bg"></div>
+    <div class="noise"></div>
+
+    <header class="report-header">
+      <div>
+        <p class="eyebrow">CYBERAPI SCANNER</p>
+        <h1>SCAN REPORT</h1>
+        <p class="target" id="scan-target">Target: -</p>
+      </div>
+      <a class="ghost-link" href="index.html">New Scan</a>
+    </header>
+
+    <section class="summary" id="summary-cards"></section>
+
+    <section class="panel charts">
+      <div class="panel-header">
+        <h2>Threat Analytics</h2>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Severity Distribution</h3>
+          <canvas id="severityChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Vulnerabilities Per Endpoint</h3>
+          <canvas id="endpointChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Security Score</h3>
+          <div class="score-wrap">
+            <canvas id="scoreChart"></canvas>
+            <div class="score-label" id="score-label">0%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Vulnerability Report</h2>
+      </div>
+      <div class="table" id="vuln-table"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>AI Security Suggestions</h2>
+      </div>
+      <div class="suggestions" id="suggestions"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Security Checks Performed</h2>
+      </div>
+      <div class="checks" id="checks"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>
