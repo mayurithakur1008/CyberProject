@@ -36,6 +36,24 @@ form.addEventListener("submit", async (event) => {
 
     const data = await response.json();
     const reportId = data.reportId;
+    if (data.report) {
+      const sessionEmail = localStorage.getItem("cyberapi_session");
+      const reportKey = sessionEmail ? `lastReport_${sessionEmail}` : "lastReport";
+      const idKey = sessionEmail ? `lastReportId_${sessionEmail}` : "lastReportId";
+      const historyKey = sessionEmail ? `scanHistory_${sessionEmail}` : "scanHistory";
+      localStorage.setItem(reportKey, JSON.stringify(data.report));
+      localStorage.setItem(idKey, reportId || "");
+
+      const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+      history.unshift({
+        id: reportId || "",
+        target: data.report.target,
+        summary: data.report.summary,
+        report: data.report,
+        createdAt: Date.now(),
+      });
+      localStorage.setItem(historyKey, JSON.stringify(history.slice(0, 20)));
+    }
     window.location.href = `report.html?reportId=${encodeURIComponent(reportId)}`;
   } catch (error) {
     setStatus("Scanner backend is unavailable. Start the API service and try again.", true);

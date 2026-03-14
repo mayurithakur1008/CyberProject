@@ -26,15 +26,26 @@ body {
   overflow-x: hidden;
 }
 
+.zooming {
+  overflow: hidden;
+}
+
 .page {
   position: relative;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 48px 20px;
   text-align: center;
   isolation: isolate;
+  gap: 24px;
+}
+
+.page > section {
+  width: min(1100px, 100%);
+  margin: 0 auto;
 }
 
 .bg {
@@ -67,6 +78,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 32px;
+  min-height: 70vh;
+  justify-content: center;
 }
 
 h1 {
@@ -151,6 +164,87 @@ h1 {
   box-shadow: none;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
+.section-zoom {
+  position: fixed;
+  inset: 16px;
+  z-index: 50;
+  overflow: auto;
+  animation: sectionZoom 0.4s ease;
+  box-shadow: 0 0 40px rgba(60, 231, 255, 0.35);
+  background: rgba(4, 10, 18, 0.92);
+  border: 1px solid rgba(60, 231, 255, 0.25);
+  transform-origin: center;
+  padding-top: 44px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+.section-zoom::after {
+  content: "Use Previous/Next or Esc to close";
+  position: sticky;
+  top: 0;
+  display: block;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+  background: rgba(4, 10, 18, 0.9);
+  border-bottom: 1px solid rgba(60, 231, 255, 0.15);
+  z-index: 1;
+}
+
+.zoom-controls {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 10px;
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.zoom-controls[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.zoom-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(60, 231, 255, 0.25);
+  background: rgba(6, 14, 24, 0.85);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.zoom-btn:hover {
+  border-color: rgba(60, 231, 255, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(60, 231, 255, 0.25);
+}
+
+.zoom-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.zoom-btn.close {
+  border-color: rgba(255, 122, 122, 0.4);
+  color: #ffb3b3;
+}
+
 .scan-status {
   min-height: 20px;
   color: var(--muted);
@@ -160,6 +254,98 @@ h1 {
 
 .scan-status[data-state="error"] {
   color: #ff7a7a;
+}
+
+.ai-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(60, 231, 255, 0.25);
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.ai-link:hover {
+  border-color: rgba(60, 231, 255, 0.6);
+  box-shadow: 0 0 18px rgba(60, 231, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.auth-links {
+  margin-top: 10px;
+  display: inline-flex;
+  gap: 12px;
+}
+
+.auth-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.auth-links a:hover {
+  color: var(--text);
+}
+
+.about,
+.features {
+  margin-top: 0;
+  text-align: left;
+}
+
+.hero-spacer {
+  height: 35vh;
+}
+
+.about h2,
+.features h2 {
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.about p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.feature-card {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(9, 18, 30, 0.55);
+  border: 1px solid rgba(60, 231, 255, 0.18);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.feature-card h3 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 .sr-only {
@@ -201,6 +387,11 @@ h1 {
   100% { transform: translateX(0); }
 }
 
+@keyframes sectionZoom {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 @media (max-width: 720px) {
   h1 {
     letter-spacing: 0.18em;
@@ -218,7 +409,15 @@ h1 {
 
 .dashboard {
   padding: 40px 20px 80px;
+  display: block;
   align-items: flex-start;
+  width: 100%;
+}
+
+.dashboard > header,
+.dashboard > section {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .report-header {
@@ -229,6 +428,47 @@ h1 {
   gap: 16px;
   margin: 16px auto 32px;
 }
+
+.report-grid {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.layout-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 231, 255, 0.25);
+  background: rgba(6, 14, 24, 0.7);
+}
+
+.layout-btn {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.layout-btn.active {
+  background: rgba(60, 231, 255, 0.2);
+  color: #dff7ff;
+}
+
 
 .report-header h1 {
   font-size: clamp(2rem, 4.5vw, 3.4rem);
@@ -362,9 +602,18 @@ h1 {
   margin-bottom: 12px;
 }
 
+.chart-card canvas {
+  width: 100% !important;
+  aspect-ratio: 1 / 1;
+  height: auto !important;
+  max-height: 240px;
+}
+
 .score-wrap {
   position: relative;
-  height: 220px;
+  width: min(220px, 100%);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
 }
 
 .score-wrap canvas {
@@ -456,12 +705,106 @@ h1 {
   gap: 12px;
 }
 
+.layout-stacked .summary,
+.layout-stacked .chart-grid,
+.layout-stacked .checks,
+.layout-stacked .suggestions {
+  grid-template-columns: 1fr;
+}
+
+.layout-stacked .report-grid {
+  display: block;
+}
+
+.layout-side .report-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 260px)
+    minmax(260px, 320px)
+    minmax(520px, 1fr)
+    minmax(240px, 280px);
+  grid-template-areas:
+    "summary charts vulnerabilities suggestions"
+    "summary charts vulnerabilities checks";
+  gap: 22px;
+  align-items: start;
+}
+
+.layout-side .summary-section { grid-area: summary; }
+.layout-side .charts-section { grid-area: charts; }
+.layout-side .vuln-section { grid-area: vulnerabilities; }
+.layout-side .suggestions-section { grid-area: suggestions; }
+.layout-side .checks-section { grid-area: checks; }
+
+.layout-side .summary,
+.layout-side .chart-grid,
+.layout-side .checks,
+.layout-side .suggestions {
+  grid-template-columns: 1fr;
+  min-width: 0;
+}
+
+.layout-side .panel,
+.layout-side .summary {
+  min-width: 0;
+}
+
+.layout-side .vuln-section {
+  overflow: hidden;
+}
+
+.layout-side .table {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.layout-side .table-row {
+  min-width: 720px;
+}
+
+.layout-side .table-row span {
+  word-break: break-word;
+}
+
+.layout-side .report-header {
+  width: min(1400px, 100%);
+}
+
+@media (max-width: 1350px) {
+  .layout-side .report-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "summary charts"
+      "vulnerabilities vulnerabilities"
+      "suggestions checks";
+  }
+}
+
+@media (max-width: 900px) {
+  .layout-side .report-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "summary"
+      "charts"
+      "vulnerabilities"
+      "suggestions"
+      "checks";
+  }
+}
+
 .suggestion {
   padding: 14px 16px;
   border-radius: 14px;
   background: rgba(5, 12, 22, 0.6);
   border: 1px solid rgba(60, 231, 255, 0.12);
   color: #cfe3ff;
+}
+
+.section-zoom.summary,
+.section-zoom.panel {
+  width: auto;
+  max-width: none;
+  margin: 0;
 }
 
 @media (max-width: 900px) {

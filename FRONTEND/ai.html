@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYBERAPI SCANNER – AI Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ai.css" />
+</head>
+<body>
+  <main class="ai-page">
+    <div class="bg"></div>
+    <div class="noise"></div>
+
+    <header class="ai-header">
+      <div>
+        <p class="eyebrow">CYBERAPI SCANNER</p>
+        <h1>CYBER AI ASSISTANT</h1>
+        <p class="subtitle">Ask about vulnerabilities, fixes, or scan strategy.</p>
+      </div>
+      <a class="ghost-link" href="index.html">Back to Scan</a>
+    </header>
+
+    <section class="ai-panel">
+      <div class="provider">
+        <span>Mode</span>
+        <div class="toggle" role="group" aria-label="Assistant mode">
+          <button type="button" class="provider-btn active" data-provider="cyber">Cyber AI</button>
+        </div>
+      </div>
+
+      <div class="messages" id="chat-messages">
+        <div class="message assistant">Hello. Ask me about the current scan, risks, or remediation steps.</div>
+      </div>
+
+      <form class="input-row" id="chat-form" autocomplete="off">
+        <input id="chat-text" type="text" placeholder="Type your question..." />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="ai.js"></script>
+</body>
+</html>

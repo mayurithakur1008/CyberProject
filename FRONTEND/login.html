@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYBERAPI SCANNER – Log In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <main class="auth-page">
+    <div class="bg"></div>
+    <div class="noise"></div>
+
+    <section class="auth-card">
+      <h1>Log In</h1>
+      <p>Access your saved scan results.</p>
+      <form id="login-form" autocomplete="off">
+        <label>
+          Email
+          <input type="email" id="email" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="password" required />
+        </label>
+        <button type="submit">Log In</button>
+      </form>
+      <p class="switch">New here? <a href="signup.html">Create an account</a></p>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>

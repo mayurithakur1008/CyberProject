@@ -1,0 +1,140 @@
+:root {
+  --bg-0: #04070d;
+  --bg-1: #071423;
+  --bg-2: #0a1f34;
+  --text: #e8f2ff;
+  --muted: #9fb8d4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--bg-0);
+  overflow: hidden;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  isolation: isolate;
+}
+
+.bg {
+  position: absolute;
+  inset: -20vmax;
+  background:
+    radial-gradient(40vmax 30vmax at 20% 20%, rgba(60, 231, 255, 0.15), transparent 60%),
+    radial-gradient(35vmax 30vmax at 80% 30%, rgba(0, 129, 255, 0.18), transparent 60%),
+    radial-gradient(30vmax 40vmax at 50% 80%, rgba(0, 255, 204, 0.08), transparent 70%),
+    linear-gradient(140deg, var(--bg-0), var(--bg-1), var(--bg-2));
+  animation: drift 18s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+  z-index: -1;
+  animation: grain 3s steps(6) infinite;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  padding: 28px;
+  border-radius: 20px;
+  background: rgba(9, 18, 30, 0.6);
+  border: 1px solid rgba(60, 231, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(18px) saturate(140%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-card h1 {
+  font-size: 2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.auth-card input {
+  border-radius: 12px;
+  border: 1px solid rgba(60, 231, 255, 0.2);
+  background: rgba(4, 10, 18, 0.8);
+  color: var(--text);
+  padding: 12px 14px;
+}
+
+.auth-card button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #11c9ff, #2d7bff);
+  color: #04121d;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.switch {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.switch a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(-2%, -2%, 0) scale(1); }
+  50% { transform: translate3d(2%, 1%, 0) scale(1.05); }
+  100% { transform: translate3d(-1%, 3%, 0) scale(1.08); }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-1%, 3%); }
+  80% { transform: translate(3%, -2%); }
+}

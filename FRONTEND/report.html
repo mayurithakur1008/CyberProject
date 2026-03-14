@@ -14,60 +14,82 @@
     <div class="bg"></div>
     <div class="noise"></div>
 
+    <div class="zoom-controls" aria-hidden="true">
+      <button class="zoom-btn" data-zoom-action="prev">Previous</button>
+      <button class="zoom-btn" data-zoom-action="next">Next</button>
+      <button class="zoom-btn close" data-zoom-action="close">Close</button>
+    </div>
+
     <header class="report-header">
       <div>
         <p class="eyebrow">CYBERAPI SCANNER</p>
         <h1>SCAN REPORT</h1>
         <p class="target" id="scan-target">Target: -</p>
       </div>
-      <a class="ghost-link" href="index.html">New Scan</a>
+      <div class="header-actions">
+        <div class="layout-toggle" role="group" aria-label="Report layout">
+          <button type="button" class="layout-btn" data-layout="side">Side-by-side</button>
+          <button type="button" class="layout-btn" data-layout="stack">One by one</button>
+        </div>
+        <a class="ghost-link" href="index.html">New Scan</a>
+      </div>
     </header>
 
-    <section class="summary" id="summary-cards"></section>
+    <div class="report-grid">
+      <section class="summary summary-section" id="summary-cards" data-section="summary"></section>
 
-    <section class="panel charts">
-      <div class="panel-header">
-        <h2>Threat Analytics</h2>
-      </div>
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Severity Distribution</h3>
-          <canvas id="severityChart"></canvas>
+      <section class="panel charts charts-section" id="charts" data-section="charts">
+        <div class="panel-header">
+          <h2>Threat Analytics</h2>
         </div>
-        <div class="chart-card">
-          <h3>Vulnerabilities Per Endpoint</h3>
-          <canvas id="endpointChart"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>Security Score</h3>
-          <div class="score-wrap">
-            <canvas id="scoreChart"></canvas>
-            <div class="score-label" id="score-label">0%</div>
+        <div class="chart-grid">
+          <div class="chart-card" data-zoom="charts">
+            <h3>Severity Distribution</h3>
+            <canvas id="severityChart"></canvas>
+          </div>
+          <div class="chart-card" data-zoom="charts">
+            <h3>Vulnerabilities Per Endpoint</h3>
+            <canvas id="endpointChart"></canvas>
+          </div>
+          <div class="chart-card" data-zoom="charts">
+            <h3>Security Score</h3>
+            <div class="score-wrap">
+              <canvas id="scoreChart"></canvas>
+              <div class="score-label" id="score-label">0%</div>
+            </div>
+          </div>
+          <div class="chart-card" data-zoom="charts">
+            <h3>Risk Trend (Last 7 Scans)</h3>
+            <canvas id="trendChart"></canvas>
+          </div>
+          <div class="chart-card" data-zoom="charts">
+            <h3>Average Response Time</h3>
+            <canvas id="latencyChart"></canvas>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="panel">
-      <div class="panel-header">
-        <h2>Vulnerability Report</h2>
-      </div>
-      <div class="table" id="vuln-table"></div>
-    </section>
+      <section class="panel vuln-section" id="vulnerabilities" data-section="vulnerabilities">
+        <div class="panel-header">
+          <h2>Vulnerability Report</h2>
+        </div>
+        <div class="table" id="vuln-table"></div>
+      </section>
 
-    <section class="panel">
-      <div class="panel-header">
-        <h2>AI Security Suggestions</h2>
-      </div>
-      <div class="suggestions" id="suggestions"></div>
-    </section>
+      <section class="panel suggestions-section" id="suggestions-panel" data-section="suggestions">
+        <div class="panel-header">
+          <h2>AI Security Suggestions</h2>
+        </div>
+        <div class="suggestions" id="suggestions"></div>
+      </section>
 
-    <section class="panel">
-      <div class="panel-header">
-        <h2>Security Checks Performed</h2>
-      </div>
-      <div class="checks" id="checks"></div>
-    </section>
+      <section class="panel checks-section" id="checks-panel" data-section="checks">
+        <div class="panel-header">
+          <h2>Security Checks Performed</h2>
+        </div>
+        <div class="checks" id="checks"></div>
+      </section>
+    </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

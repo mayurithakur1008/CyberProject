@@ -1,13 +1,22 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, HttpUrl
 import hashlib
 import random
 import time
 import uuid
-from urllib.parse import urlparse
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class ScanRequest(BaseModel):
+    url: HttpUrl
 
 REPORTS = {}
 
@@ -59,14 +68,6 @@ def seeded_rng(value: str) -> random.Random:
     digest = hashlib.sha256(value.encode("utf-8")).hexdigest()
     seed = int(digest[:16], 16)
     return random.Random(seed)
-
-
-def is_valid_url(url: str) -> bool:
-    try:
-        parsed = urlparse(url)
-        return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
-    except Exception:
-        return False
 
 
 def build_report(url: str) -> dict:
@@ -153,25 +154,16 @@ def build_report(url: str) -> dict:
 
 
 @app.post("/scan")
-def scan():
-    data = request.get_json(silent=True) or {}
-    url = (data.get("url") or "").strip()
-    if not is_valid_url(url):
-        return jsonify({"error": "Invalid URL"}), 400
-
+def scan(request: ScanRequest):
     report_id = str(uuid.uuid4())
-    report = build_report(url)
+    report = build_report(str(request.url))
     REPORTS[report_id] = report
-    return jsonify({"reportId": report_id, "report": report})
+    return {"reportId": report_id, "report": report}
 
 
-@app.get("/report/<report_id>")
+@app.get("/report/{report_id}")
 def get_report(report_id: str):
     report = REPORTS.get(report_id)
     if not report:
-        return jsonify({"error": "Report not found"}), 404
-    return jsonify(report)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=False)
+        raise HTTPException(status_code=404, detail="Report not found")
+    return report
